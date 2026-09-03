@@ -2,8 +2,8 @@
 
 Graph: $n$ nodes, $m$ edges  
 Node degree: $k_n = $#edges from/to node   
-Average degree $k = 2m/n$  
-Max edges = $n(n-1)/2$
+Average degree $\langle k\rangle = 2m/n$  
+Max edges = $n(n-1)/2$  
 Network density = $2m/[n(n-1)]$  
 
 Path: edges that join two nodes
