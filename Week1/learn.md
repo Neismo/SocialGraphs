@@ -8,6 +8,7 @@ Network density = $2m/[n(n-1)]$
 
 Path: edges that join two nodes
 Distance: the _shortest_ path(s)
+Diameter: the largest of the _shortest_ paths in a giant component
 
 Undirected: adjacency matrix is _symmetric_.
 Simple network: max 1 edge between pairs, no self loops (diagonal 0 in adj matrix)
