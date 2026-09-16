@@ -1,4 +1,4 @@
-# LEARNING PARTS
+# Learning Parts
 
 ### Erdos-Renyi model:
 - __Expected Edges__: Has a probability $p$ that all edges independently uses to form an edge with:
@@ -6,6 +6,12 @@
 - __Degree Distribution__: Follows binomial distribution; if large and sparse, then follows _Poisson_ with mean $\langle k\rangle$ (average degree); when $\langle k\rangle$ is large, then it follows approximately a _normal_.
 - __Distances__: Average distance grows with $\log n$.
 - __Clustering__: because neighbours link with same probability, $p$, clustering is very low.
+
+__Watts–Strogatz__: means the network between a __lattice__ and __random__ based on the _q_ parameter that swaps links with shortcuts!
+
+__Barabási–Albert__: means a network based on _growth_ and is called _scale-free_ as well! The growth is $$\Pi(k_i) = \frac{k_i}{\sum_jk_j}$$
+
+__Overview__: ![Table](Table.png)
 
 #### Giant Connected Components
 - Start appearing at $p = 1/|V|$ or eqiuvalently $p = 1/n$. In fact, it grows quickly after that, which mimics real networks!
@@ -103,6 +109,39 @@ __complementary cumulative distribution__: $P(K>k)$ is the fraction of nodes wit
 
 It removes the need for binning.
 
+#### 2.6
+
+
+#### 2.7
+1) Current degrees in a growing network: A: 5, B: 3, C: 1, D: 1. A newcomer makes one preferential-attachment link. Probability it goes to A? To D? Now the newcomer makes $m=2$ links (to two different nodes, first one preferentially, then again among the rest): probability that A gets one of them?
+    - First question, it is $5/10 = 0.5$ due to weight by degree, and A has degree 5 out of the total 10.
+    - Second question, we can figure it; either the first link happens to be on A, which was $1/2$, if that fails, which is equal chance, it then has a chance to be picked again, but this time the odds are a bit worse: $1/2 + 1/2\cdot 5/12 = 17/24 \approx 0.7083$.
+2) After that newcomer has attached to A, the next newcomer arrives. Has A's chance of being chosen gone up or down, and by how much? Write one sentence connecting this to the phrase "rich get richer."
+    - If it attached to A, then the chances in this case actually doesn't go up, as it becomes $6/12$. However, all others would have gone down, which relatively speaking means A stands stronger than the others for getting picked. I.e., the poor gets eaten.
+3) Here are three degree distributions described in words. Name the model each one came from (random / Watts–Strogatz / Barabási–Albert / lattice) and say what would give it away on a plot: (a) every node has degree exactly 4; (b) a hump around 8, nothing above 20, and a bell shape on linear axes; (c) most nodes have degree 2 or 3, a few have 200.
+    - a) This is the classic Lattice construction
+    - b) A bell shape would signify a _random_ network! it also makes sense we would see very few above 20, if the average is 8!
+    - c) This to me sounds exactly like the Barabase-Albert one, which has the power law; few with very high degree, many with low ones.
+4) You double $⟨k⟩$ in a random network, keeping $n$. What happens to $C$? To the average distance? To the giant component? Now double $n$ keeping $⟨k⟩$ fixed: same three questions. Then, for Watts–Strogatz, what happens to $C$ and $⟨d⟩$ as $p$ goes from 0.001 to 0.01 — and which of the two moves first?
+    - __Random Network (double ⟨k⟩)__: 
+        - C: assumng a very large network, I believe it would go down, as the value $k_i$ in the denominator goes up, but $e_i$ does not neccesarily. It would flip at some point of doubling though.
+        - Doubling the degree, would definitely have a positive impact on distances. If we are around $⟨k⟩=1$, then doubling has a large impact.
+        - Giant Component? Grows larger!
+    - __Random Network (double n)__:
+        - C: It decreases.
+        - Doubling the number of nodes, I see it has positive impact on the average distance, as links are formed independently, meaning more chances of adding to a component, and thus addind distance.
+        - Doubling the number of nodes, I can suspect that it has a positive impact on the component size, since there are more chances of links forming.
+    - __Watts-Strogatz (double ⟨k⟩)__:
+        - C: Increases the clustering coefficient!
+        - Doubling average degree, will impact distances negatively, i.e., they will become shorter! Since it has a lattice approach, adding to degree will allow longer jumps in 1 move.
+        - Giant Component: unchanged, in WS it is all one big component anyways
+    - __Watts-Strogatz (double n)__:
+        - C: I am not sure it changes at all?
+        - Double amount of nodes, _will_ affect the average distance as it is proportional to $n$.
+        - It becomes twice as big.
+5) Fill in a 3 × 3 table: rows = random / Watts–Strogatz / Barabási–Albert; columns = clustering, distances, hubs. In each cell: does the model get the real world right or wrong, and what ingredient is responsible?
+    - ![Table](Table.png)
+
 ## Shuffling VS null models
 We used the random model as a "baseline". As a picture of what the network would be with "nothing interesting going on".
 
@@ -112,7 +151,7 @@ The _null model_ needs to have the correct baseline, that is, if for centrality,
 - __Edge Swapping__: Pick two links A-B and C-D; swap such that it is A-C and B-D; repeat 1000 times. Node degree kept, links shuffled
 - __Configuration Models__: This is a version of the random network, but where we force it to have a specific degree distribution. In practice it's done by giving every node as many "stubs" as its real degree, then pairing stubs up uniformly at random.
 
-Example of _edge swapping_ on the Marvel network:
+Example of _edge swapping_ on the Marvel network
 > So: the random network has a clustering of 0.04. A random network with hubs has a clustering of 0.15. But the real network has C=0.32. So now we know that it's not just the hubs!
 
 ### Null Model and Statistical Test
